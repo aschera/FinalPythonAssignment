@@ -79,6 +79,13 @@ Step 8: Run app and see on url the output
 
 #-------------------------------------#
 
+Step 9: Change the look of the page
+    9.1 add a view to viewd.py file
+    9.2 move views.py to the 'FinalPythonProject' folder.
+    9.3 add url to the view in the urls.py file
+
+#-------------------------------------#
+
 # Inlämingsuppgift python programering
 
 ## Mål och motivering
