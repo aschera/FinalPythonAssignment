@@ -74,14 +74,21 @@ Step 8: Run app and see on url the output
     8.2 login as an admin
         http://127.0.0.1:8000/admin/
 
-#-------------------------------------#
-
 Step 9: Change the look of the page
+
     9.1 add a view to view.py file
+
     9.3 add url to the view in the urls.py file
 
+Step 10: add data from csv file to beer model
+    10.1 update model with correct column names
+    10.2 migrate
+    10.3 scripts folder(with init)
+    10.4 test to load csv into data frame.
+
 #-------------------------------------#
 
+#-------------------------------------#
 # Inlämingsuppgift python programering
 
 ## Mål och motivering

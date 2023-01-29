@@ -18,7 +18,6 @@ from django.urls import path
 
 from CraftBeerInfoApp import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('beer/', views.beer),

@@ -20,7 +20,7 @@ def home(request):
 #-------------------------------------#
 # create a function for BEER
 
-# relative import of forms
+# relative import 
 from .models import beer
  
 def beer(request):
