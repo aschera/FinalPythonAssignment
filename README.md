@@ -14,10 +14,10 @@ Step 1: create a Django project
             pip install django (in terminal powershell in VS code)
 
     1.2 make django project ( THIS is the api, server, the backend)
-            python -m django startproject FinalPythonProject (in terminal powershell in VS code) 
+            python -m django startproject CraftBeerAPI (in terminal powershell in VS code) 
 
     1.3 test server
-            cd .\FinalPythonProject\
+            cd .\CraftBeerAPI\
             python manage.py runserver
 
             -> runs on : http://127.0.0.1:8000/
@@ -25,39 +25,36 @@ Step 1: create a Django project
 Step 2: open that project and install Django REST Framework
 
     2.1 install the REST framework for django
-            pip install djangorestframework
+        pip install djangorestframework
 
-Step 3: create a new app inside of the project ( This is the frontend sort of)
-    
-    3.1 the app to hold the view and the model:
-        cd .\FinalPythonProject\ 
-        python manage.py startapp CraftsBeerInfo
+    2.2 make an app inside there that starts the application
+        python manage.py startapp CraftBeerInfoApp
 
-Step 4: configure settings in the project
+Step 3: configure settings in the project
     
-    4.1 in: FinalPythonProject\FinalPythonProject\settings.py
+    3.1 in: settings.py
         add two new lines: see below.
         INSTALLED_APPS = [
             'rest_framework',
-            'CraftsBeerInfo'
+            'CraftBeerInfoApp'
         ]
 
-Step 5: create my model for the database
+Step 4: create my model for the database
     
-    5.1 add into models.py ( some info about the tables / columns) 
+    4.1 add into CraftBeerInfo\CraftBeerInfoApp\models.py ( some info about the tables / columns) 
         ex: class beer(models.Model):
                 name = models.CharField(max_length=10)
 
 
 Step 5: register models to the admin file
 
-    6.1 add to admin.py ( some info about the model to add to the db)
+    5.1 add to admin.py ( some info about the model to add to the db)
         # Register your models here.
         from .models import beer
         # Register your models here.
         admin.site.register(beer)
 
-Step 6: migrate
+Step 6: migrate ( in FinalPythonAssignment\CraftBeerAPI )
 
     6.1 update your table structure.
         python manage.py makemigrations
@@ -80,8 +77,7 @@ Step 8: Run app and see on url the output
 #-------------------------------------#
 
 Step 9: Change the look of the page
-    9.1 add a view to viewd.py file
-    9.2 move views.py to the 'FinalPythonProject' folder.
+    9.1 add a view to view.py file
     9.3 add url to the view in the urls.py file
 
 #-------------------------------------#
