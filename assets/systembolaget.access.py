@@ -27,7 +27,7 @@ import requests
 # for file
 
 
-with open('beer.website.source.html', encoding='utf-8-sig') as f:  
+with open('assets/beer_website_source.html', encoding='utf-8-sig') as f:  
     #read File
     content = f.read()
     #parse HTML
@@ -36,7 +36,18 @@ with open('beer.website.source.html', encoding='utf-8-sig') as f:
 
     import pandas as pd
 
+
+# fixture format:
+# [
+#    {
+#        "pk": "1",
+#        "model": "store.Beer",
+#        "fields": 
+#    }
+# ]
+
     p_tags = []
+
     for a in soup.find_all('a'):
         a_data = []
 
@@ -80,8 +91,14 @@ with open('beer.website.source.html', encoding='utf-8-sig') as f:
         if a_data:
             p_tags.append(a_data)
 
+    # make dat frame
     df = pd.DataFrame(p_tags)
     df.columns=['Type', 'Name', 'Nr', 'Country', 'Amount', 'Percentage', 'Price']
 
+    # make csv file
+    # df.to_csv("assets/beer_output.csv", index=False, encoding='utf-8-sig' )
 
-    df.to_csv("beer_output.csv", index=False, encoding='utf-8-sig' )
+    import json
+    # make json file
+    with open('df.json', 'w', encoding='utf-8', errors='ignore') as file:
+        df.to_json('assets/beer_output.json', force_ascii=False)

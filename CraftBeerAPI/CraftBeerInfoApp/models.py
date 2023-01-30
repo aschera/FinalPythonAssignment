@@ -4,7 +4,9 @@ from django.db import models
 
 
 # Entry some data into model
-class beer(models.Model):
+class Beer(models.Model):
+
+    # Fields
     Type = models.CharField(max_length=30, null=True)
     Name = models.CharField(max_length=10, null=True)
     Nr = models.CharField(max_length=10, null=True)
@@ -13,7 +15,11 @@ class beer(models.Model):
     Percentage= models.CharField(max_length=10, null=True)
     Price = models.CharField(max_length=10, null=True)
     beer_quantity = models.CharField(max_length=10, null=True)
+
  
-# Create a string representation
+    # Methods
     def __str__(self):
-        return self.Type # will return all the fields.
+        return self.Name # will return name
+
+    def list_data(self):
+        return [self.Type, self.Name, self.Nr, self.Country, self.Amount, self.Percentage, self.Price, self.beer_quantity]

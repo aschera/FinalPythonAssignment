@@ -5,30 +5,25 @@ from django.shortcuts import render
 
 # import Http Response from django
 from django.http import HttpResponse
-# get datetime
-import datetime
- 
+
 # create a function for HOME
 def home(request):
-    # fetch date and time
-    now = datetime.datetime.now()
     # convert to string
-    html = "Time is {}".format(now)
+    html = " You can see all beer types under /beer. And all breweries under /brew. "
     # return response
     return HttpResponse(html)
 
 #-------------------------------------#
 # create a function for BEER
 
-# relative import 
-from .models import beer
+from django.template import loader
+from .models import Beer
+
  
 def beer(request):
-    # dictionary for initial data with
-    # field names as keys
-    context ={}
- 
-    # add the dictionary during initialization
-    context["dataset"] = beer.objects.all()
-         
-    return render(request, "list_view.html", context)
+    beer = Beer.objects.all().values()
+    template = loader.get_template('all_beer.html')
+    context = {
+        'beer': beer,
+    }
+    return HttpResponse(template.render(context, request))
