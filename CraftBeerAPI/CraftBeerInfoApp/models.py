@@ -21,7 +21,7 @@ class Beer(models.Model):
 
     # Methods
     def __str__(self):
-        return self.Name # will return name
+        return self.Name 
 
     def list_data(self):
         return [self.Type, self.Name, self.Nr, self.Country, self.Amount, self.Percentage, self.Price, self.beer_quantity]
@@ -38,7 +38,7 @@ class GroupViewSet(models.Model):
 
     # Methods
     def __str__(self):
-        return self.Name # will return name
+        return self.Name 
 
     def list_data(self):
         return [self.Type, self.Name]

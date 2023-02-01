@@ -1,7 +1,7 @@
 [
     {
-        "model": "CraftBeerInfoApp.models",
-        "pk": "pk",
+        "model": "CraftBeerInfoApp.beer",
+        "pk": 1,
         "fields": {
             "Type": {
                 "0": "Öl, Ale, Amerikansk pale ale (APA)",
