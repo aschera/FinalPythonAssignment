@@ -69,11 +69,16 @@ for a in soup.find_all('a'):
             if s.text:
                 beername = s.text.replace('\n',' ')
 
+        for d in p.find_all('p', class_ = 'css-w9tb7l'): # the brewery: class css-w9tb7l
+            if d.text:
+                beerbrewery = d.text.replace('\n',' ')
+
+
         for t in p.find_all('p', class_ = 'css-10vqt1w'): # the nr: class css-10vqt1w 
             if t.text:
                 only_numbers = re.compile(r'\d+(?:\.\d+)?') # pattern that only returns numbers
-                beernr = only_numbers.findall((t.text))
-                beernr = int(beernr[0])
+                beerNr = only_numbers.findall((t.text))
+                beerNr = int(beerNr[0])
   
         # 3x : css-1e3a8ey (country, amount in ml, percentage alcohol)
         counter = 0
@@ -90,7 +95,7 @@ for a in soup.find_all('a'):
             if v.text:
                 beerprice = v.text.replace('\n',' ')
 
-        case = {'beertype': beertype, 'beername': beername, 'beernr': beernr, 'beerprice': beerprice, 'beerCountry': result['beerCountry'], 'beerAmount': result['beerAmount'], 'beerPercentage': result['beerPercentage']}
+        case = {'beertype': beertype, 'beerbrewery': beerbrewery,'beername': beername, 'beerNr': beerNr, 'beerprice': beerprice, 'beerCountry': result['beerCountry'], 'beerAmount': result['beerAmount'], 'beerPercentage': result['beerPercentage']}
 
         newdict.append(case)
 
