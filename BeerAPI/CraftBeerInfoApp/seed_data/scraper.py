@@ -75,14 +75,20 @@ for a in soup.find_all('a'):
                 beernr = int(beernr[0])
   
         for u in p.find_all('p', class_ = 'css-1e3a8ey'): # 3x : css-1e3a8ey (country, amount in ml, percentage alcohol)
+            temp = 0
+            list = ['Country', 'Amount', 'Percentage']
+            result = []
             if u.text:
-                beerx = u.text.replace('\n',' ')
+                name = 'beer' + list[temp]
+                beer = u.text.replace('\n',' ')
+                result.append(beer)
+                temp += 1
 
         for v in p.find_all('p', class_ = 'css-1kvpmze'): # the price: class css-1kvpmze
             if v.text:
                 beerprice = v.text.replace('\n',' ')
 
-        case = {'Type': beertype, 'Name': beername, 'Nr':beernr, 'x': beerx, 'Price' : beerprice }
+        case = {'beertype': beertype, 'beername': beername, 'beernr':beernr,  'beerprice' : beerprice }
         
         newdict.append(case)
 
@@ -91,8 +97,6 @@ for a in soup.find_all('a'):
     #test
     if newdict:
         data.append(newdict)
-
-        print(data)
 
 # initialize the file with an empty list:
 # with open('beer_output1.json', mode='w', encoding='utf-8-sig') as f1:
@@ -109,9 +113,9 @@ df1 = pd.DataFrame(data)
 with open('beer_output2.json', 'w', encoding='utf-8', errors='ignore') as file:
     df1.to_json('beer_output2.json', force_ascii=False, orient='values')
 
-        # make csv file
-        # df.to_csv("beer_output.csv", index=False, encoding='utf-8-sig' )
+# make csv file
+# df1.to_csv("beer_output.csv", index=False, encoding='utf-8-sig' )
 
-        # make json file
-        #with open('df.json', 'w', encoding='utf-8', errors='ignore') as file:
-        #    df.to_json('beer_output.json', force_ascii=False)
+# make json file
+#with open('df.json', 'w', encoding='utf-8', errors='ignore') as file:
+#    df.to_json('beer_output.json', force_ascii=False)
