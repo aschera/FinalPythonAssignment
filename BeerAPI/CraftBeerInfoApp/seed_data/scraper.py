@@ -56,6 +56,7 @@ data= []
 for a in soup.find_all('a'):
 
     newdict = []
+    result = {}
 
     for p in a.find_all('div', class_ = 'css-1otywyl'):
 
@@ -74,22 +75,23 @@ for a in soup.find_all('a'):
                 beernr = only_numbers.findall((t.text))
                 beernr = int(beernr[0])
   
-        for u in p.find_all('p', class_ = 'css-1e3a8ey'): # 3x : css-1e3a8ey (country, amount in ml, percentage alcohol)
-            temp = 0
-            list = ['Country', 'Amount', 'Percentage']
-            result = []
+        # 3x : css-1e3a8ey (country, amount in ml, percentage alcohol)
+        counter = 0
+    
+        keys = ['beerCountry', 'beerAmount', 'beerPercentage']
+        for u in p.find_all('p', class_='css-1e3a8ey'):
             if u.text:
-                name = 'beer' + list[temp]
-                beer = u.text.replace('\n',' ')
-                result.append(beer)
-                temp += 1
+                result[keys[counter]] = u.text
+                counter += 1
+                if counter == 3:
+                    continue
 
         for v in p.find_all('p', class_ = 'css-1kvpmze'): # the price: class css-1kvpmze
             if v.text:
                 beerprice = v.text.replace('\n',' ')
 
-        case = {'beertype': beertype, 'beername': beername, 'beernr':beernr,  'beerprice' : beerprice }
-        
+        case = {'beertype': beertype, 'beername': beername, 'beernr': beernr, 'beerprice': beerprice, 'beerCountry': result['beerCountry'], 'beerAmount': result['beerAmount'], 'beerPercentage': result['beerPercentage']}
+
         newdict.append(case)
 
         

@@ -3,9 +3,6 @@ The final assignment for my Python course in the Data Science education.
 
 I'm going to use the following libraries to create my API:
 - Django framework
-- POSTMAN REST client for testing. or Thunder Client
-
-With inspiration from: https://www.simplifiedpython.net/django-rest-api-tutorial/
 
 #-------------------------------------#
 # Inlämingsuppgift python programering
