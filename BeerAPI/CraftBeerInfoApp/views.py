@@ -1,6 +1,8 @@
-from django.http import HttpResponse
+import json
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.shortcuts import render
+ 
 
 from rest_framework import status, generics
 from rest_framework.views import APIView
@@ -57,6 +59,16 @@ def create_beer(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+# post many
+@api_view(['POST'])
+def create_beers(request):
+    beers_data = request.data
+    serializer = BeerSerializer(data=beers_data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 """
 Test object

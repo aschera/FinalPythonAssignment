@@ -1,0 +1,40 @@
+[
+
+            
+                {
+                    "beerType": "Öl, Ljus lager, Internationell stil",
+                    "beerName": "8th year Stout",
+                    "beerBrewery": "Göteborgs Nya Bryggeri",
+                    "beerNr": 54053,
+                    "beerPrice": 29.3,
+                    "beerCountry": "Sverige",
+                    "beerAmount": "500 ml",
+                    "beerPercentage": "5,7 %"
+                }
+            ,
+            
+                {
+                    "beerType": "Öl, Övrig syrlig öl",
+                    "beerName": "8th year Stout",
+                    "beerBrewery": "Mohawk Brewing Company",
+                    "beerNr": 35564,
+                    "beerPrice": 100.3,
+                    "beerCountry": "Sverige",
+                    "beerAmount": "375 ml",
+                    "beerPercentage": "7,1 %"
+                }
+            ,
+            
+                {
+                    "beerType": "Öl, Ale, New England IPA Hazy IPA",
+                    "beerName": "8th year Stout",
+                    "beerBrewery": "Stigbergets Bryggeri",
+                    "beerNr": 52126,
+                    "beerPrice": 504.1,
+                    "beerCountry": "Sverige",
+                    "beerAmount": "5000 ml",
+                    "beerPercentage": "6,5 %"
+                }
+            
+        
+            ]

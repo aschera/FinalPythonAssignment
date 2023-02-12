@@ -72,8 +72,6 @@ for a in soup.find_all('a'):
                 beer = r.text.replace('\n',' ')
                 beerType = re.sub('[\/]', ' ', beer)
 
-                
-
 
         #----------------------- N A M E ------------------------------------------#  
         beerName = ''
@@ -82,8 +80,6 @@ for a in soup.find_all('a'):
                 beerName = d.text.replace('\n',' ')
 
 
-
-        
         #----------------------- B R E W E R Y ------------------------------------------#
         beerBrewery = ''           
         for s in p.find_all('p', class_ = 'css-w9tb7l'): # the name: class css-w9tb7l
@@ -101,9 +97,14 @@ for a in soup.find_all('a'):
                     beerName= "Pretty Pale Ale"
                 if s.text.startswith('O/O A.B.W American Barley Wine'):
                     beerName= "A.B.W American Barley Wine"
+                if s.text.startswith('O/O Festbier'):
+                    beerName= "Festbier"
                     
-                    
-                    
+                #----------- All In Brewing------------#
+                if s.text.startswith(''):
+                    beerBrewery =  'All In Brewing'
+                    beerName= "8th year Stout"
+  
                 #----------- Beerbliotek ------------#
                 if s.text.startswith('Beerbliotek'):
                     beerBrewery =  'Beerbliotek'
@@ -116,7 +117,6 @@ for a in soup.find_all('a'):
                     beerBrewery =  'Beersmiths'
                     beerName= "Retard Beer"
                     
-
                 #----------- Bearded Rabbit Brewery ------------#    
                 if s.text.startswith('Åttonde Mars'):
                     beerBrewery =  'Bearded Rabbit Brewery'
@@ -126,6 +126,15 @@ for a in soup.find_all('a'):
                 if s.text.startswith('Monkish'):
                     beerBrewery =  'Bearded Rabbit Brewery'
                     beerName= "Monkish"
+                if s.text.startswith('Floda Pilsner'):
+                    beerBrewery =  'Bearded Rabbit Brewery'
+                    beerName= "Floda Pilsner"
+                if s.text.startswith('Bunny Blood'):
+                    beerBrewery =  'Bearded Rabbit Brewery'
+                    beerName= "Bunny Blood"
+                if s.text.startswith('Doppelgänger'):
+                    beerBrewery =  'Bearded Rabbit Brewery'
+                    beerName= "Doppelgänger"
 
                 #----------- Billdale ------------#
                 if s.text.startswith('Billdale'):
@@ -135,10 +144,18 @@ for a in soup.find_all('a'):
                 if s.text.startswith('Diamante'):
                     beerBrewery =  'Billdale'
                     beerName= "Diamante"
+                if s.text.startswith('True Love'):
+                    beerBrewery =  'Billdale'
+                    beerName= "True Love"
+                    
 
                 #----------- Sad Robot Brewing Co ------------#
                 if s.text.startswith('Sad Robot'):
                     beerBrewery =  'Sad Robot Brewing Co'
+                if s.text.startswith('Eightysix'):
+                    beerBrewery =  'Sad Robot Brewing Co'
+                    beerName= "Eightysix"
+                   
 
                 #----------- Spike Brewery ------------#
                 if s.text.startswith('Burger Beer'):
@@ -154,7 +171,6 @@ for a in soup.find_all('a'):
                 if s.text.startswith('Duckpond'):
                     beerBrewery =  'Duckpond Brewing'
     
-
                 #----------- Mohawk ------------#
                 if s.text.startswith('Mohawk'):
                     beerBrewery =  'Mohawk Brewing Company'
@@ -180,6 +196,9 @@ for a in soup.find_all('a'):
                 if s.text.startswith('Mörk Vienna'):
                     beerBrewery =  'Två Feta Grisar'
                     beerName= "Mörk Vienna" 
+                if s.text.startswith('Diamant'):
+                    beerBrewery =  'Två Feta Grisar'
+                    beerName= "Diamant" 
 
 
                 #----------- Stigbergets ------------#
@@ -191,6 +210,11 @@ for a in soup.find_all('a'):
                     beerName= "Trouble Sleep" 
                 if s.text.startswith('Stigbergets DH-DDH-WC IPA'):
                     beerName= "Double Headed DDH West Coast IPA" 
+                if s.text.startswith('Stigbergets American Pale Ale'):
+                    beerName= "American Pale Ale" 
+                if s.text.startswith('Stigbergets Session IPA'):
+                    beerName= "Session IPA" 
+                    
 
                 #----------- Spike Brewery ------------#
                 if s.text.startswith('Spike'):
@@ -201,6 +225,10 @@ for a in soup.find_all('a'):
                 if s.text == 'Spike':
                     beerBrewery =  'Spike Brewery'
                     beerName= "Spike" 
+                if s.text == 'Fingerlickin':
+                    beerBrewery =  'Spike Brewery'
+                    beerName= "Fingerlickin'" 
+                    
                     
                 #----------- Göteborgs Nya Bryggeri ------------#
                 if s.text.startswith('Gothenburg brew'):
@@ -248,7 +276,11 @@ for a in soup.find_all('a'):
                     beerName= "Majornas EPA" 
                 if s.text.startswith('Älska'):
                     beerBrewery =  'Majornas Bryggeri'
-                    beerName= "Älska"    
+                    beerName= "Älska"
+                if s.text.startswith('Majornas Höstale'):
+                    beerBrewery =  'Majornas Bryggeri'
+                    beerName= "Majornas Höstale "
+                       
 
                 #----------- Morgondagens Bryggeri------------#
                 if s.text.startswith('Morgondagens'):
@@ -332,8 +364,33 @@ for beer in data:
 unique_breweries = list(breweries)
 
 # Writing the list to a JSON file
-with open('breweries_output2.json', 'w', encoding='utf-8', errors='ignore') as file:
+with open('breweries_output.json', 'w', encoding='utf-8', errors='ignore') as file:
     json.dump(unique_breweries, file, ensure_ascii=False)
+
+# ------------------------make fixture -----------------------------------#
+
+''' 
+has to look like this
+[
+    {
+        "model": "CraftBeerInfoApp.beer",
+        "pk": 1,
+        "fields": {}
+        }
+]
+'''
+
+fixture = {
+    "model": "CraftBeerInfoApp.beer",
+    "pk": 1,
+    "fields": { "data": data }
+}
+
+with open('breweries_output_fixture.json', 'w', encoding='utf-8', errors='ignore') as file:
+    json.dump(fixture, file, ensure_ascii=False)
+
+# python manage.py loaddata CraftBeerInfoApp/seed_data/beer_output_fixture.json
+ 
 
 
 # ------------------------Add beer list -----------------------------------#
@@ -348,12 +405,12 @@ with open('breweries_output2.json', 'w', encoding='utf-8', errors='ignore') as f
 
 # make json from df
 # Writing the list to a JSON file
-with open('beer_output.json', 'w', encoding='utf-8', errors='ignore') as file:
-    json.dump(data, file, ensure_ascii=False)
+# with open('beer_output.json', 'w', encoding='utf-8', errors='ignore') as file:
+#    json.dump(data, file, ensure_ascii=False)
 
 
 # Create DataFrame
-df2 = pd.DataFrame(data)
+#df2 = pd.DataFrame(data)
 
 # make csv file
 # df1.to_csv("beer_output.csv", index=False, encoding='utf-8-sig' )
