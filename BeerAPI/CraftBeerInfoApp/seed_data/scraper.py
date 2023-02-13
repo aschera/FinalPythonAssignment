@@ -5,53 +5,19 @@
 
 from collections import defaultdict
 from bs4 import BeautifulSoup
-import requests
+from typing import List
 
-# for URL
-# with requests.Session() as se:
-#     se.headers = {
- #        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
- #        "Accept-Encoding": "gzip, deflate",
-  #       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-   #      "Accept-Language": "en"
-   #  }
+import re  # regular expressions, to find the data - exclude letters and spaces.
+import json
 
-
-# site = 'https://www.systembolaget.se/sortiment/ol/sverige/vastra-gotalands-lan/goteborgs-stad/'
-# response = se.get(site)
-# print(response)
-# print(response.text)
-
-# soup = BeautifulSoup(response.content, 'html.parser')
-# print(soup.prettify())
-
-# ------------------------------------------------------------------ #
-
-# for file
-
+# source
+# 'https://www.systembolaget.se/sortiment/ol/sverige/vastra-gotalands-lan/goteborgs-stad/'
 
 with open('beer_website_source.html', encoding='utf-8-sig') as f:  
     #read File
     content = f.read()
     #parse HTML
     soup = BeautifulSoup(content, 'html.parser')
-
-
-    import pandas as pd
-
-
-# fixture format:
-# [
-#    {
-#        "pk": "1",
-#        "model": "store.Beer",
-#        "fields": {}
-#    }
-# ]
-
-import re  # regular expressions, to find the data - exclude letters and spaces.
-from typing import List
-import json
 
 # reset values
 data= []
@@ -64,7 +30,6 @@ for a in soup.find_all('a'):
 
     for p in a.find_all('div', class_ = 'css-1otywyl'):
 
-
         #----------------------- T Y P E ------------------------------------------# 
         beerType = ''
         for r in p.find_all('p', class_ = 'css-4ijttz'): # the type: class css-4ijttz
@@ -72,13 +37,11 @@ for a in soup.find_all('a'):
                 beer = r.text.replace('\n',' ')
                 beerType = re.sub('[\/]', ' ', beer)
 
-
         #----------------------- N A M E ------------------------------------------#  
         beerName = ''
         for d in p.find_all('p', class_ = 'css-9c24zl'): # the brewery: class css-9c24zl
             if d.text:
                 beerName = d.text.replace('\n',' ')
-
 
         #----------------------- B R E W E R Y ------------------------------------------#
         beerBrewery = ''           
@@ -147,7 +110,6 @@ for a in soup.find_all('a'):
                 if s.text.startswith('True Love'):
                     beerBrewery =  'Billdale'
                     beerName= "True Love"
-                    
 
                 #----------- Sad Robot Brewing Co ------------#
                 if s.text.startswith('Sad Robot'):
@@ -156,7 +118,6 @@ for a in soup.find_all('a'):
                     beerBrewery =  'Sad Robot Brewing Co'
                     beerName= "Eightysix"
                    
-
                 #----------- Spike Brewery ------------#
                 if s.text.startswith('Burger Beer'):
                     beerBrewery =  'Spike Brewery'
@@ -200,7 +161,6 @@ for a in soup.find_all('a'):
                     beerBrewery =  'Två Feta Grisar'
                     beerName= "Diamant" 
 
-
                 #----------- Stigbergets ------------#
                 if s.text.startswith('Stigbergets'):
                     beerBrewery =  'Stigbergets Bryggeri'
@@ -214,7 +174,6 @@ for a in soup.find_all('a'):
                     beerName= "American Pale Ale" 
                 if s.text.startswith('Stigbergets Session IPA'):
                     beerName= "Session IPA" 
-                    
 
                 #----------- Spike Brewery ------------#
                 if s.text.startswith('Spike'):
@@ -228,8 +187,7 @@ for a in soup.find_all('a'):
                 if s.text == 'Fingerlickin':
                     beerBrewery =  'Spike Brewery'
                     beerName= "Fingerlickin'" 
-                    
-                    
+
                 #----------- Göteborgs Nya Bryggeri ------------#
                 if s.text.startswith('Gothenburg brew'):
                     beerBrewery =  'Göteborgs Nya Bryggeri'
@@ -279,8 +237,7 @@ for a in soup.find_all('a'):
                     beerName= "Älska"
                 if s.text.startswith('Majornas Höstale'):
                     beerBrewery =  'Majornas Bryggeri'
-                    beerName= "Majornas Höstale "
-                       
+                    beerName= "Majornas Höstale "              
 
                 #----------- Morgondagens Bryggeri------------#
                 if s.text.startswith('Morgondagens'):
@@ -309,9 +266,6 @@ for a in soup.find_all('a'):
                     beerBrewery =  'Vega Bryggeri'
                     beerName= "Double Dry Hopped IPA"
 
-
-                    
-                    
         #----------------------- N R ------------------------------------------#
         beerNr = 0 
         for t in p.find_all('p', class_ = 'css-10vqt1w'): # the nr: class css-10vqt1w 
@@ -319,7 +273,6 @@ for a in soup.find_all('a'):
                 only_numbers = re.compile(r'\d+(?:\.\d+)?') # pattern that only returns numbers
                 beerNr = only_numbers.findall((t.text))
                 beerNr = int(beerNr[0])
-  
 
         #----------------------- 'beerCountry', 'beerAmount', 'beerPercentage' ------------------------------------------#
         # 3x : css-1e3a8ey (country, amount in ml, percentage alcohol)
@@ -346,75 +299,53 @@ for a in soup.find_all('a'):
 
 
         newdict.append(case)
-
         
     #test
     if newdict:
         data.append(newdict)
 
+# ------------------------Create brewery list ---------------------------------#
+breweries = []
 
-
-# ------------------------Add brewry list -----------------------------------#
-breweries = set()
 for beer in data:
     brewery = beer[0]["beerBrewery"]
-    breweries.add(brewery)
+    found_brewery = False
 
+    # Check if brewery already exists in the list
+    for b in breweries:
+        if b["breweryName"] == brewery:
+            beer[0]["brewery_id"] = b["id"]
+            found_brewery = True
+            break
 
-unique_breweries = list(breweries)
+    # If brewery doesn't exist, add it to the list
+    if not found_brewery:
+        new_brewery = {
+            "id": len(breweries) + 1,
+            "breweryName": brewery
+        }
+        beer[0]["brewery_id"] = new_brewery["id"]
+        breweries.append(new_brewery)
+
+# ------------------------Add brewery list to JSON ----------------------------#
 
 # Writing the list to a JSON file
 with open('breweries_output.json', 'w', encoding='utf-8', errors='ignore') as file:
-    json.dump(unique_breweries, file, ensure_ascii=False)
+    json.dump(breweries, file, ensure_ascii=False)
 
-# ------------------------make fixture -----------------------------------#
+# ------------------------Update beer list -----------------------------------#
 
-''' 
-has to look like this
-[
-    {
-        "model": "CraftBeerInfoApp.beer",
-        "pk": 1,
-        "fields": {}
-        }
-]
-'''
+brewery_mapping = {}
+for index, brewery in enumerate(breweries):
+    brewery_mapping[brewery["breweryName"]] = brewery["id"]
 
-fixture = {
-    "model": "CraftBeerInfoApp.beer",
-    "pk": 1,
-    "fields": { "data": data }
-}
+for beer in data:
+    brewery_name = beer[0]["beerBrewery"]
+    brewery_id = brewery_mapping[brewery_name]
+    beer[0]["beerBrewery"] = brewery_id
 
-with open('breweries_output_fixture.json', 'w', encoding='utf-8', errors='ignore') as file:
-    json.dump(fixture, file, ensure_ascii=False)
+# ------------------------Add beer list to JSON ------------------------------#
 
-# python manage.py loaddata CraftBeerInfoApp/seed_data/beer_output_fixture.json
- 
-
-
-# ------------------------Add beer list -----------------------------------#
-
-# initialize the file with an empty list:
-# with open('beer_output1.json', mode='w', encoding='utf-8-sig') as f1:
-#     json.dump([], f1)
-
-#append new entries to this list:
-# with open('beer_output1.json', mode='w', encoding='utf-8-sig') as f2:
-#     json.dump(data, f2)  
-
-# make json from df
 # Writing the list to a JSON file
-# with open('beer_output.json', 'w', encoding='utf-8', errors='ignore') as file:
-#    json.dump(data, file, ensure_ascii=False)
-
-
-# Create DataFrame
-#df2 = pd.DataFrame(data)
-
-# make csv file
-# df1.to_csv("beer_output.csv", index=False, encoding='utf-8-sig' )
-
-# make json file
-#with open('df.json', 'w', encoding='utf-8', errors='ignore') as file:
-#    df.to_json('beer_output.json', force_ascii=False)
+with open('beers_output.json', 'w', encoding='utf-8', errors='ignore') as file:
+    json.dump(data, file, ensure_ascii=False)
