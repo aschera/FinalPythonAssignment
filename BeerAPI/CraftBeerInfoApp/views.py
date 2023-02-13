@@ -11,8 +11,8 @@ from rest_framework.response import Response
 from rest_framework.generics import UpdateAPIView
 from rest_framework.exceptions import ValidationError
 
-from .models import Beer # <- import the model.
-from .serializers import BeerSerializer # <- import the serializer
+from .models import Beer, Brewery # <- import the model.
+from .serializers import BeerSerializer, BrewerySerializer # <- import the serializer
 
 # Create your views here.
 
@@ -47,13 +47,22 @@ class BeerListView(APIView):
     #    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # -------------------------------------------------------#
-# 2: GET
+# 2: brewery GET
+class BreweryListView(APIView):
+
+    def get(self, request, format=None):
+        brew= Brewery.objects.all()
+        if not brew:
+            return Response({"detail": "No breweries found."})
+        serializer = BrewerySerializer(brew, many=True)
+        return Response(serializer.data)
 
 # -------------------------------------------------------#
 # 1: beers POST
 @api_view(['POST'])
 def create_beer(request):
-    serializer = BeerSerializer(data=request.data)
+    beers_data = request.data
+    serializer = BeerSerializer(data=beers_data, many=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -89,6 +98,37 @@ Test object
 
 # -------------------------------------------------------#
 # 2: POST
+@api_view(['POST'])
+def create_brewery(request):
+    brewery_data = request.data
+    serializer = BrewerySerializer(data=brewery_data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+"""
+Test object
+
+[
+    {"breweryName":"Sad Robot Brewing Co"},
+    {"breweryName":"Beerbliotek"},
+    {"breweryName":"Spike Brewery"},
+    {"breweryName":"Vega Bryggeri"},
+    {"breweryName":"Stigbergets Bryggeri"},
+    {"breweryName":"Mohawk Brewing Company"},
+    {"breweryName":"Billdale"},
+    {"breweryName":"Beersmiths"},
+    {"breweryName":"Duckpond Brewing"},
+    {"breweryName":"Morgondagens Bryggeri"},
+    {"breweryName":"Två Feta Grisar"},
+    {"breweryName":"Bearded Rabbit Brewery"},
+    {"breweryName":"All In Brewing"},
+    {"breweryName":"Majornas Bryggeri"},
+    {"breweryName":"Göteborgs Nya Bryggeri"}
+]
+
+"""
 
 # -------------------------------------------------------#
 # 1: PUT
