@@ -24,7 +24,15 @@ def home_view(request, *args, **kwargs):
 
 # the start page: with a template
 def home_view(request, *args, **kwargs):
-    return render(request, 'home.html')
+
+    beer_list = Beer.objects.all().values()
+    beer_list_dict = {
+        'question': beer_list
+    }
+    
+    return render(request, 'home.html', beer_list_dict)
+
+
 
 
 # -------------------------------------------------------#
@@ -61,17 +69,6 @@ class BreweryListView(APIView):
 # 1: beers POST
 @api_view(['POST'])
 def create_beer(request):
-    beers_data = request.data
-    serializer = BeerSerializer(data=beers_data, many=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# post many
-@api_view(['POST'])
-def create_beers(request):
     beers_data = request.data
     serializer = BeerSerializer(data=beers_data, many=True)
     if serializer.is_valid():
@@ -134,6 +131,7 @@ Test object
 # 1: PUT
 
 class BeerUpdateView(UpdateAPIView):
+
     queryset = Beer.objects.all()
     serializer_class = BeerSerializer
 

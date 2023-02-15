@@ -1,1 +1,62 @@
-[{"id": 1, "breweryName": "All In Brewing"}, {"id": 2, "breweryName": "Göteborgs Nya Bryggeri"}, {"id": 3, "breweryName": "Stigbergets Bryggeri"}, {"id": 4, "breweryName": "Beerbliotek"}, {"id": 5, "breweryName": "Duckpond Brewing"}, {"id": 6, "breweryName": "Bearded Rabbit Brewery"}, {"id": 7, "breweryName": "Spike Brewery"}, {"id": 8, "breweryName": "Två Feta Grisar"}, {"id": 9, "breweryName": "Vega Bryggeri"}, {"id": 10, "breweryName": "Billdale"}, {"id": 11, "breweryName": "Beersmiths"}, {"id": 12, "breweryName": "Majornas Bryggeri"}, {"id": 13, "breweryName": "Mohawk Brewing Company"}, {"id": 14, "breweryName": "Morgondagens Bryggeri"}, {"id": 15, "breweryName": "Sad Robot Brewing Co"}]
+[
+    {
+        "id": 1,
+        "breweryName": "All In Brewing"
+    },
+    {
+        "id": 2,
+        "breweryName": "Göteborgs Nya Bryggeri"
+    },
+    {
+        "id": 3,
+        "breweryName": "Stigbergets Bryggeri"
+    },
+    {
+        "id": 4,
+        "breweryName": "Beerbliotek"
+    },
+    {
+        "id": 5,
+        "breweryName": "Duckpond Brewing"
+    },
+    {
+        "id": 6,
+        "breweryName": "Bearded Rabbit Brewery"
+    },
+    {
+        "id": 7,
+        "breweryName": "Spike Brewery"
+    },
+    {
+        "id": 8,
+        "breweryName": "Två Feta Grisar"
+    },
+    {
+        "id": 9,
+        "breweryName": "Vega Bryggeri"
+    },
+    {
+        "id": 10,
+        "breweryName": "Billdale"
+    },
+    {
+        "id": 11,
+        "breweryName": "Beersmiths"
+    },
+    {
+        "id": 12,
+        "breweryName": "Majornas Bryggeri"
+    },
+    {
+        "id": 13,
+        "breweryName": "Mohawk Brewing Company"
+    },
+    {
+        "id": 14,
+        "breweryName": "Morgondagens Bryggeri"
+    },
+    {
+        "id": 15,
+        "breweryName": "Sad Robot Brewing Co"
+    }
+]

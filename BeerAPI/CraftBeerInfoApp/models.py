@@ -17,6 +17,6 @@ class Beer(models.Model):
     beerPrice = models.DecimalField(max_length=10, null=True, decimal_places=2, max_digits=10000)
 
     def __str__(self):
-        return self.name
+        return self.beerName
 
 

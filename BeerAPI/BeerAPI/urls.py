@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from CraftBeerInfoApp.views import BeerListView, BreweryListView, home_view, create_beer, create_beers, create_brewery, BeerUpdateView, BeerDeleteView   # <- import the views.
+from CraftBeerInfoApp.views import BeerListView, BreweryListView, home_view, create_beer, create_brewery, BeerUpdateView, BeerDeleteView   # <- import the views.
+
 
 
 urlpatterns = [
@@ -26,7 +27,6 @@ urlpatterns = [
 # -- BEER --    
     path("beer/", BeerListView.as_view(), name="beer-list"), # <- the beer list, GET request
     path('beer/create/', create_beer, name='create_beer'), # <- the create beer, POST request
-    path('beer/create_many/', create_beers, name='create_beers'), # <- the create beer, POST request
     path('beer/<int:pk>/', BeerUpdateView.as_view(), name='update_beer'), # <- the update beer, PUT request
     path('beer/<int:pk>/delete/', BeerDeleteView.as_view(), name='delete_beer'),# <- the delete beer, DELETE request
 

@@ -1,7 +1,25 @@
-{% load static %} 
-{% block css %}
+
+<head>
+  {% load static %}
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('select').formSelect();
+    });
+  </script>
+  <!-- Compiled and minified CSS -->
+  <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+  {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-{% endblock %}
+  {% endblock %}
+</head>
+
+
+
 
 <div class="container">
 
@@ -35,20 +53,34 @@
 
       <div class="col s12 m3 l3 collection-item ">
         <h4>POST</h4>
-        <a href="{% url 'create_beer' %}" target="_blank"> Create a new Craft Beer</a>
-        <br>
-        <a href="{% url 'create_beers' %}" target="_blank"> Create many new Craft Beers</a></li>
+        <a href="{% url 'create_beer' %}" target="_blank"> Create new Craft Beers</a></li>
       </div>
 
       <div class="col s12 m3 l3 collection-item ">
 
         <h4>PUT</h4>
 
-        <form action="{% url 'update_beer' pk=0 %}" method="get" target="_blank">
-          <label for="pk">Update Beer: </label>
-          <input style="min-width:150px;" type="number" placeholder ='add the beer id' min="2" max="1000"  id="pk" name="pk">
-          <input type="submit" value="Update" onclick="clearInputFields()">
-        </form>
+        {% if question %}
+
+        <!-- Dropdown Trigger -->
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
+
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+          {% for x in question %}
+          <li>
+            <a class="dropdown-item" href="{% url 'update_beer' x.id %}">
+              {{ x.id }}
+            </a>
+          </li>
+                              
+          {% endfor %}
+        </ul>
+
+        {% else %}
+            <p>No ID's are available.</p>
+        {% endif %} 
+
 
       </div>
 
@@ -97,9 +129,16 @@
 
 
     <script>
-        function clearInputFields() {
-          document.getElementById("pk").value = "";
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $('.dropdown-trigger').dropdown();
     </script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </div>
   
