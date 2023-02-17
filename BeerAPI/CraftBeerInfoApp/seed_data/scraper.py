@@ -342,26 +342,33 @@ class BeerParser:
         return breweries
 
 
-# ------------------------ Scrape data from HTML---------------------------------#
+# ------------------------ Scrape data from HTML ---------------------------------#
 
+# Parse the HTML source code of a beer website using the BeerParser module
 data = BeerParser.parse_file('beer_website_source.html')
 
-# ------------------------ Make the  brewery list ---------------------------------#
+# ------------------------ Make the brewery list ---------------------------------#
 
-breweries_ids = BeerParser.assign_brewery_ids(data, 38)
+# Define the starting ID number for breweries
+start_id = 38
+
+# Use the BeerParser module to assign unique IDs to breweries in the beer data and return a list of these IDs
+breweries_ids = BeerParser.assign_brewery_ids(data, start_id)
 
 # ------------------------ Add the brewery list to JSON ----------------------------#
 
-# Writing the list to a JSON file
+# Write the list of brewery IDs to a JSON file using the json module
 with open('breweries_output.json', 'w', encoding='utf-8', errors='ignore') as file:
     json.dump(breweries_ids, file, ensure_ascii=False)
 
 # ------------------------ Make the beer list -----------------------------------#
 
+# Use the BeerParser module to map the brewery IDs to each beer and return the updated data
 beer_updated = BeerParser.map_breweries(breweries_ids, data)
 
 # ------------------------ Add the beer list to JSON ------------------------------#
 
-# Writing the list to a JSON file
+# Write the updated beer data, including mapped brewery IDs, to a JSON file using the json module
 with open('beers_output.json', 'w', encoding='utf-8', errors='ignore') as file:
     json.dump(beer_updated , file, ensure_ascii=False)
+

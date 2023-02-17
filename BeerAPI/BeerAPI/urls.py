@@ -19,8 +19,6 @@ from django.urls import path
 from CraftBeerInfoApp.views import BeerListView, BreweryListView, home_view, create_beer, create_brewery, BeerUpdateView, BeerDeleteView   # <- import the views.
 
 
-
-
 urlpatterns = [
     path('', home_view, name='home'), # the start page
     path('admin/', admin.site.urls), # the admin page
