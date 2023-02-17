@@ -3,6 +3,26 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+
+
+ /*
+Added colors::
+rOrchid
+#6E3562
+
+Freesia
+#DFB160
+
+Blue Gray
+#34586E
+
+Rosewater
+#D18D96
+ */
+
+
+
+ 
  .materialize-red {
     background-color: #e51c23 !important;
   }
@@ -2163,6 +2183,7 @@
    */
   body {
     margin: 0;
+    background-color: #6E3562;
   }
   
   /**
@@ -3080,20 +3101,36 @@
   
   .collection {
     margin: 0.5rem 0 1rem 0;
+    padding:0.3rem;
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    height: 20vh;
+    height: 30vh;
     overflow: hidden;
     position: relative;
   }
-  
-  .collection .collection-item {
+
+  @media only screen and (max-width: 601px) {
+    .collection {
+      height: auto;
+    }
+  }
+
+  .row.collection .collection-item {
     background-color: #fff;
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0 auto;
     height: 100%;
+    padding: 0.5rem;
     border-left: 1px solid #e0e0e0;
+  }
+
+  @media only screen and (max-width: 601px) {
+    .row.collection .collection-item {
+      height: auto;
+      border: none;
+      border-bottom: 1px solid #e0e0e0;
+    }
   }
 
   .collection .collection-item:first-of-type {
@@ -3438,6 +3475,7 @@
     margin: 0 auto;
     max-width: 1280px;
     width: 90%;
+    background-color: white;
   }
   
   @media only screen and (min-width: 601px) {
@@ -4518,6 +4556,18 @@
       font-size: 15px;
     }
   }
+
+  h1, h4 {
+    color: #DFB160;
+  }
+
+  h2 {
+    color: #34586E;
+  }
+
+  h3 {
+    color: #D18D96;
+  }
   
   h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
@@ -5552,7 +5602,7 @@
     background-color: #fff;
     margin: 0;
     display: none;
-    min-width: 100px;
+    min-width: 200px;
     overflow-y: auto;
     opacity: 0;
     position: absolute;
@@ -5571,8 +5621,6 @@
     clear: both;
     color: rgba(0, 0, 0, 0.87);
     cursor: pointer;
-    min-height: 50px;
-    line-height: 1.5rem;
     width: 100%;
     text-align: left;
   }
@@ -5595,7 +5643,7 @@
     color: #26a69a;
     display: block;
     line-height: 22px;
-    padding: 14px 16px;
+    padding: 0.3rem;
   }
   
   .dropdown-content li > span > label {

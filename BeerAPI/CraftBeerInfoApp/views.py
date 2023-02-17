@@ -25,12 +25,16 @@ def home_view(request, *args, **kwargs):
 # the start page: with a template
 def home_view(request, *args, **kwargs):
 
+    # add all the beers to the view
+    # add all the breweries to the view
+    brewery_list = Brewery.objects.all().values()
     beer_list = Beer.objects.all().values()
-    beer_list_dict = {
-        'question': beer_list
+    list_dict = {
+        'brewery_list': brewery_list,
+        'beer_list': beer_list
     }
     
-    return render(request, 'home.html', beer_list_dict)
+    return render(request, 'home.html', list_dict)
 
 
 
@@ -143,6 +147,7 @@ class BeerUpdateView(UpdateAPIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # -------------------------------------------------------#
 # 1: DELETE

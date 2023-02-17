@@ -62,7 +62,8 @@ class BeerParser:
                             beerName= "Festbier"
                             
                         #----------- All In Brewing------------#
-                        if s.text.startswith(''):
+                        if s.text.startswith('8th year Stout'):
+                            print(s.text)
                             beerBrewery =  'All In Brewing'
                             beerName= "8th year Stout"
         
@@ -309,12 +310,12 @@ class BeerParser:
 
         for beer in data:
             brewery_name = beer[0]["beerBrewery"]
-            brewery_id = brewery_mapping[brewery_name]
-            beer[0]["beerBrewery"] = brewery_id
+            brewery_id = brewery_mapping[brewery_name] 
+            beer[0]["beerBrewery"] = brewery_id 
             
         return data
 
-    def assign_brewery_ids(data):
+    def assign_brewery_ids(data, startnr):
 
         breweries = []
 
@@ -325,14 +326,14 @@ class BeerParser:
             # Check if brewery already exists in the list
             for b in breweries:
                 if b["breweryName"] == brewery:
-                    beer[0]["brewery_id"] = b["id"]
+                    beer[0]["brewery_id"] = b["id"] 
                     found_brewery = True
                     break
 
             # If brewery doesn't exist, add it to the list
             if not found_brewery:
                 new_brewery = {
-                    "id": len(breweries) + 1,
+                    "id": len(breweries) + startnr,
                     "breweryName": brewery
                 }
                 beer[0]["brewery_id"] = new_brewery["id"]
@@ -347,7 +348,7 @@ data = BeerParser.parse_file('beer_website_source.html')
 
 # ------------------------ Make the  brewery list ---------------------------------#
 
-breweries_ids = BeerParser.assign_brewery_ids(data)
+breweries_ids = BeerParser.assign_brewery_ids(data, 38)
 
 # ------------------------ Add the brewery list to JSON ----------------------------#
 

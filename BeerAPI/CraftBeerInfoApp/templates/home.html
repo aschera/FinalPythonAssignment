@@ -1,4 +1,3 @@
-
 <head>
   {% load static %}
 
@@ -6,15 +5,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
       $('select').formSelect();
     });
   </script>
   <!-- Compiled and minified CSS -->
-  <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+  <meta name="viewport" content="width = device-width, initial-scale = 1">
 
   {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   {% endblock %}
 </head>
 
@@ -23,113 +22,158 @@
 
 <div class="container">
 
-    <div class="row">
+  <div class="row">
 
-      <div class="col s12 m12 l12">
+    <div class="col s12 m12 l12">
 
-        <h1 class="red-text">Craft Beer API</h1>
-        <h2 class="pink-text">API Endpoints</h2>
+      <h1 >Craft Beer API</h1>
+      <h2 >API Endpoints</h2>
 
-      </div>
+      <p> This is an API of Beer data.
+        <br>
+        The beers are from local breweries in Gothenburg.
+        Webscraped from systembolaget.se
+      </p>
 
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="row">
-
-      <div class="col s12 m12 l12">
-        <h3 class="grey-text">Beer</h3>
-      </div>
-
-    </div>
-
-    <div class="row collection">
-
-      <div class="col s12 m3 l3 collection-item ">
-        <h4>GET</h4>
-        <a href="{% url 'beer-list' %}" target="_blank"> List of all Craft Beers</a>
-      </div>
-
-      <div class="col s12 m3 l3 collection-item ">
-        <h4>POST</h4>
-        <a href="{% url 'create_beer' %}" target="_blank"> Create new Craft Beers</a></li>
-      </div>
-
-      <div class="col s12 m3 l3 collection-item ">
-
-        <h4>PUT</h4>
-
-        {% if question %}
-
-        <!-- Dropdown Trigger -->
-        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
-
-        <!-- Dropdown Structure -->
-        <ul id='dropdown1' class='dropdown-content'>
-          {% for x in question %}
-          <li>
-            <a class="dropdown-item" href="{% url 'update_beer' x.id %}">
-              {{ x.id }}
-            </a>
-          </li>
-                              
-          {% endfor %}
-        </ul>
-
-        {% else %}
-            <p>No ID's are available.</p>
-        {% endif %} 
-
-
-      </div>
-
-      <div class="col s12 m3 l3 collection-item ">
-
-        <h4>DELETE</h4>
-
-        <form action="{% url 'delete_beer' pk=2 %}" method="post" target="_blank">
-          {% csrf_token %}
-          <label for="pk">Delete Beer: </label>
-          <input style="min-width:150px;" type="number" placeholder ='add the beer id' min="2" max="1000"  id="pk" name="pk">
-          <input type="hidden" name="_method" value="delete">
-          <input type="submit" value="Delete" onclick="clearInputFields()">
-        </form>
-
-      </div>
-
+      <ol>
+        <li>
+          There is a list of breweries and beers under the headings 'GET'.
+        </li>
+        <li>
+          You can add new beer and brewery objects under the heading 'POST'. <br>
+          The format needs to be a JSON list: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
+        </li>
+        <li>
+          There is an option to change the data in an existing beer object under 'PUT'.
+          Choose an ID in the list and you are forwarded to a page where you can add your changes and save them.
+        </li>
+        <li>
+          There is an option to delete an existing beer object under 'DELETE'.
+          Choose an ID in the list and you are forwarded to a page where you can confirm that the selected beer should
+          be deleted.
+        </li>
+      </ol>
 
     </div>
 
-    <div class="divider"></div>
+  </div>
 
-    <div class="row">
 
-      <div class="col s12 m12 l12">
-        <h3 class="grey-text">Brewery</h3>
-      </div>
+  <div class="row">
+
+    <div class="col s12 m12 l12">
+      <h3 >Beer</h3>
+    </div>
+
+  </div>
+
+  <div class="row collection">
+
+    <div class="col s12 m3 l3 collection-item ">
+      <h4>1 GET</h4>
+      <a href="{% url 'beer-list' %}" target="_blank"> List of all Craft Beers</a>
+    </div>
+
+    <div class="col s12 m3 l3 collection-item ">
+      <h4>2 POST</h4>
+      <a href="{% url 'create_beer' %}" target="_blank"> Create new Craft Beers</a></li>
+    </div>
+
+    <div class="col s12 m3 l3 collection-item ">
+
+      <h4>3 PUT</h4>
+
+      <p> Choose an ID in the list to update </p>
+
+      {% if beer_list %}
+
+      <!-- Dropdown Trigger -->
+      <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Choose Beer ID</a>
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown1' class='dropdown-content'>
+        {% for x in beer_list %}
+        <li>
+          <a class="dropdown-item" href="{% url 'update_beer' x.id %}" target="_blank">
+            {{ x.beerName }} : {{ x.id }}
+          </a>
+        </li>
+
+        {% endfor %}
+      </ul>
+
+      {% else %}
+      <p>No ID's are available.</p>
+      {% endif %}
+
 
     </div>
 
-    <div class="row collection">
+    <div class="col s12 m3 l3 collection-item ">
 
-      <div class="col s12 m3 l3 collection-item ">
-        <h4>GET</h4>
-        <a href="{% url 'brewery-list' %}" target="_blank"> List of all Breweries</a>
-      </div>
+      <h4>4 DELETE</h4>
 
-      <div class="col s12 m3 l3 collection-item ">
-        <h4>POST</h4>
-        <a href="{% url 'create_brewery' %}" target="_blank"> Create new Breweries</a>
-      </div>
+      <p> Choose an ID in the list to delete</p>
+
+      {% if beer_list %}
+
+      <!-- Dropdown Trigger -->
+      <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Choose Beer ID</a>
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown2' class='dropdown-content'>
+        {% for x in beer_list %}
+
+        <li>
+          <a class="dropdown-item" href="{% url 'delete_beer' x.id %}" target="_blank">
+            {{ x.beerName }} : {{ x.id }}
+          </a>
+        </li>
+
+        {% endfor %}
+      </ul>
+
+      {% else %}
+      <p>No ID's are available.</p>
+      {% endif %}
+
+
+      </form>
 
     </div>
 
-    
+
+  </div>
+
+ 
+
+  <div class="row">
+
+    <div class="col s12 m12 l12">
+      <h3 >Brewery</h3>
+    </div>
+
+  </div>
+
+  <div class="row collection">
+
+    <div class="col s12 m6 l3 collection-item ">
+      <h4>1 GET</h4>
+      <a href="{% url 'brewery-list' %}" target="_blank"> List of all Breweries</a>
+    </div>
+
+    <div class="col s12 m6 l3 collection-item ">
+      <h4>2 POST</h4>
+      <a href="{% url 'create_brewery' %}" target="_blank"> Create new Breweries</a>
+    </div>
+
+  </div>
 
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
       var elems = document.querySelectorAll('.dropdown-trigger');
       var instances = M.Dropdown.init(elems, options);
     });
@@ -137,8 +181,7 @@
     // Or with jQuery
 
     $('.dropdown-trigger').dropdown();
-    </script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </div>
-  
+  </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</div>
