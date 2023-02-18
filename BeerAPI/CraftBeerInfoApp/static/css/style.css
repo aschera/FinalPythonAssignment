@@ -2197,6 +2197,22 @@ Rosewater
   section {
     display: block;
   }
+
+  header{
+    background-image: url('../beer_banner.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 20vh;
+}
+
+h1#header-text{ 
+    position: relative;
+    top: 0;
+    text-align: left;
+    margin-top: 0;
+}
   
   /**
    * Correct the font size and margin on `h1` elements within `section` and
@@ -2349,6 +2365,10 @@ Rosewater
   
   sup {
     top: -0.5em;
+  }
+
+  p {
+    padding: 0.5rem;
   }
   
   /* Embedded content
@@ -3493,6 +3513,10 @@ Rosewater
   .col .row {
     margin-left: -0.75rem;
     margin-right: -0.75rem;
+  }
+
+  .section {
+    padding:0 !important;
   }
   
   .section {

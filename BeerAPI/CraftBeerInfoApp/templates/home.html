@@ -24,10 +24,15 @@
 
   <div class="row">
 
-    <div class="col s12 m12 l12">
+    <div class="col section  s12 m12 l12">
 
-      <h1>Craft Beer API</h1>
-      <h2>API Endpoints</h2>
+      <header>
+        <h1 id="header-text">
+          Craft Beer API
+        </h1>
+    </header>
+
+      <p>Welcome to our Beer API! We have gathered data on local breweries in Gothenburg from systembolaget.se, and you can access it through our API.</p>
 
       <p> This is an API of Beer data.
         <br>
@@ -37,22 +42,21 @@
 
       <ol>
         <li>
-          There is a list of breweries and beers under the headings 'GET'.
+          Under the 'GET' heading, you can find lists of breweries and beers. 
         </li>
         <li>
-          You can add new beer and brewery objects under the heading 'POST'. <br>
-          The format needs to be a JSON list: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
+          If you want to add new beer or brewery objects, go to the 'POST' heading. Remember that your data needs to be in the JSON list format: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
         </li>
         <li>
-          There is an option to change the data in an existing beer object under 'PUT'.
-          Choose an ID in the list and you are forwarded to a page where you can add your changes and save them.
-        </li>
+          If you want to change the data in an existing beer object, go to the 'PUT' heading and choose the ID of the beer you want to update. You'll be taken to a page where you can make your changes and save them.
         <li>
-          There is an option to delete an existing beer object under 'DELETE'.
-          Choose an ID in the list and you are forwarded to a page where you can confirm that the selected beer should
-          be deleted.
+          Finally, if you want to delete an existing beer object, go to the 'DELETE' heading and choose the ID of the beer you want to delete. You'll be taken to a page where you can confirm that you want to delete the selected beer.
         </li>
       </ol>
+
+      <p>
+        We hope you find our Beer API useful and easy to use!
+      </p>
 
     </div>
 
@@ -61,25 +65,25 @@
 
   <div class="row">
 
-    <div class="col s12 m12 l12">
-      <h3>Beer</h3>
+    <div class="section col s12 m12 l12">
+      <h2>Beer</h2>
     </div>
 
   </div>
 
   <div class="row collection">
 
-    <div class="col s12 m3 l3 collection-item ">
+    <div class="section col s12 m3 l3 collection-item ">
       <h4>1 GET</h4>
       <a href="{% url 'beer-list' %}" target="_blank"> List of all Craft Beers</a>
     </div>
 
-    <div class="col s12 m3 l3 collection-item ">
+    <div class="section col s12 m3 l3 collection-item ">
       <h4>2 POST</h4>
       <a href="{% url 'create_beer' %}" target="_blank"> Create new Craft Beers</a></li>
     </div>
 
-    <div class="col s12 m3 l3 collection-item ">
+    <div class="col section s12 m3 l3 collection-item ">
 
       <h4>3 PUT</h4>
 
@@ -109,7 +113,7 @@
 
     </div>
 
-    <div class="col s12 m3 l3 collection-item ">
+    <div class="col section s12 m3 l3 collection-item ">
 
       <h4>4 DELETE</h4>
 
@@ -149,20 +153,20 @@
 
   <div class="row">
 
-    <div class="col s12 m12 l12">
-      <h3>Brewery</h3>
+    <div class="col section s12 m12 l12">
+      <h2>Brewery</h2>
     </div>
 
   </div>
 
   <div class="row collection">
 
-    <div class="col s12 m6 l3 collection-item ">
+    <div class="col section s12 m6 l3 collection-item ">
       <h4>1 GET</h4>
       <a href="{% url 'brewery-list' %}" target="_blank"> List of all Breweries</a>
     </div>
 
-    <div class="col s12 m6 l3 collection-item ">
+    <div class="col section s12 m6 l3 collection-item ">
       <h4>2 POST</h4>
       <a href="{% url 'create_brewery' %}" target="_blank"> Create new Breweries</a>
     </div>
