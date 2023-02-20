@@ -2183,7 +2183,6 @@ Rosewater
    */
   body {
     margin: 0;
-    background-color: #000;
   }
   
   /**
@@ -2196,6 +2195,11 @@ Rosewater
   nav,
   section {
     display: block;
+  }
+
+  section.info, section.actions {
+    background-color: white;
+    padding: 0.5rem;
   }
 
   header {
@@ -2247,8 +2251,31 @@ section .card {
   flex-direction: row;
 }
 
+@media only screen and (max-width: 680px) {
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+  }
+}
+
 .actions .get {
-  width: 20vw;
+  max-width: 20vw;
+  width: 20%;
+}
+
+@media only screen and (max-width: 680px) {
+  .actions .get {
+    max-width: 50vw;
+    width: 50%;
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+  }
 }
 
 .beer_image {
@@ -3591,7 +3618,7 @@ section .card {
   .row {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
   
   .row:after {
@@ -4642,7 +4669,7 @@ section .card {
   }
 
   h3 {
-    color: #DFB160; 
+    color: #ffab40;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -4667,7 +4694,7 @@ section .card {
   }
   
   h3 {
-    font-size: 2.92rem;
+    font-size: 2rem;
     line-height: 110%;
     margin: 1.9466666667rem 0 1.168rem 0;
   }
@@ -4886,7 +4913,6 @@ section .card {
   }
   
   .card .card-title {
-    font-size: 24px;
     font-weight: 300;
   }
   
@@ -5384,7 +5410,7 @@ section .card {
   .btn, .btn-large, .btn-small {
     text-decoration: none;
     color: #fff;
-    background-color: #e3aa03 !important; /*#26a69a;  */
+    background-color: #ffab40 !important; /*#26a69a;  */
     text-align: center;
     letter-spacing: .5px;
     -webkit-transition: background-color .2s ease-out;

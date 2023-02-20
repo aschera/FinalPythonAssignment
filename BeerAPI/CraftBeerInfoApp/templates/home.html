@@ -1,8 +1,8 @@
 <head>
   {% load static %}
 
-    <!-- material icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- material icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,9 +19,6 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   {% endblock %}
 </head>
-
-
-
 
 <header>
   <h1 id="header-text">
@@ -54,66 +51,78 @@
   </div>
 </section>
 
-<div class="container">
+<section class="info" id="info">
+  <div class="row">
+    <div class="col section s12 m12 l12">
 
-  <section class="info" id="info">
-    <div class="row">
-      <div class="col section s12 m12 l12">
+      <h2>API actions</h2>
 
-        <h2>API actions</h2>
+      <ol>
+        <li>
+          Under the 'GET' heading, you can find lists of breweries and beers.
+        </li>
+        <li>
+          If you want to add new beer or brewery objects, go to the 'POST' heading. Remember that your data needs to
+          be in the JSON list format: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
+        </li>
+        <li>
+          If you want to change the data in an existing beer object, go to the 'PUT' heading and choose the ID of the
+          beer you want to update. You'll be taken to a page where you can make your changes and save them.
+        <li>
+          Finally, if you want to delete an existing beer object, go to the 'DELETE' heading and choose the ID of the
+          beer you want to delete. You'll be taken to a page where you can confirm that you want to delete the
+          selected beer.
+        </li>
+      </ol>
 
-        <ol>
-          <li>
-            Under the 'GET' heading, you can find lists of breweries and beers.
-          </li>
-          <li>
-            If you want to add new beer or brewery objects, go to the 'POST' heading. Remember that your data needs to
-            be in the JSON list format: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
-          </li>
-          <li>
-            If you want to change the data in an existing beer object, go to the 'PUT' heading and choose the ID of the
-            beer you want to update. You'll be taken to a page where you can make your changes and save them.
-          <li>
-            Finally, if you want to delete an existing beer object, go to the 'DELETE' heading and choose the ID of the
-            beer you want to delete. You'll be taken to a page where you can confirm that you want to delete the
-            selected beer.
-          </li>
-        </ol>
+      <p>
+        We hope you find our Beer API useful and easy to use!
+      </p>
 
-        <p>
-          We hope you find our Beer API useful and easy to use!
-        </p>
-
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
+<div class="container">
   <section class="actions">
 
-    <div class="card small get beer">
-      <div class="card-image waves-effect waves-block waves-light">
+    <div class="card small get beer card blue-grey darken-1">
+      <div class="card-image">
         <div class="beer_image"></div>
       </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">
-          Beer
-          <i class="material-icons right">more_vert</i></span>
-        <p>
-          <a href="{% url 'beer-list' %}" target="_blank"> GET - List of all Craft Beers</a><br>
-          <a href="{% url 'create_beer' %}" target="_blank"> POST - Create new Craft Beers</a>
-        </p>
-
+      <div class="card-content white-text">
+        <span class="card-title h3 grey-text text-darken-4">
+          <h3>Beer GET</h3>
+            <a class="btn" href="{% url 'beer-list' %}" target="_blank">List Beers</a>
+        </span>
       </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Beer<i class="material-icons right">close</i></span>
-        <p> Be careful when using put and delete!</p>
-        <p>
-          {% if beer_list %}
-
-          <!-- Dropdown Trigger -->
-          <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>PUT</a>
-    
-          <!-- Dropdown Structure -->
+    </div>
+  
+    <div class="card small get beer card blue-grey darken-1">
+      <div class="card-image">
+        <div class="beer_image"></div>
+      </div>
+      <div class="card-content white-text">
+        <span class="card-title h3 grey-text text-darken-4">
+          <h3>Beer POST</h3>
+            <a class="btn" href="{% url 'create_beer' %}" target="_blank">Create new Beer</a>
+        </span>
+      </div>
+    </div>
+  
+    <div class="card small get beer card blue-grey darken-1">
+      <div class="card-image">
+        <div class="beer_image"></div>
+      </div>
+      <div class="card-content white-text">
+        <span class="card-title h3 grey-text text-darken-4">
+          <h3>Beer PUT</h3>
+            {% if beer_list %}
+  
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Update Beer</a>
+  
+            <!-- Dropdown Structure -->
           <ul id='dropdown1' class='dropdown-content'>
             {% for x in beer_list %}
             <li>
@@ -121,73 +130,109 @@
                 {{ x.beerName }} : {{ x.id }}
               </a>
             </li>
-    
+  
             {% endfor %}
           </ul>
-    
+  
           {% else %}
           <p>No ID's are available.</p>
           {% endif %}
-
-          <br>
-
-                {% if beer_list %}
-
-      <!-- Dropdown Trigger -->
-      <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Delete</a>
-
-      <!-- Dropdown Structure -->
-      <ul id='dropdown2' class='dropdown-content'>
-        {% for x in beer_list %}
-
-        <li>
-          <a class="dropdown-item" href="{% url 'delete_beer' x.id %}" target="_blank">
-            {{ x.beerName }} : {{ x.id }}
-          </a>
-        </li>
-
-        {% endfor %}
-      </ul>
-
-      {% else %}
-      <p>No ID's are available.</p>
-      {% endif %}
-
-        </p>
+        </span>
       </div>
     </div>
-
-    <div class="card small get brewery">
-      <div class="card-image waves-effect waves-block waves-light">
+  
+    <div class="card small get beer card blue-grey darken-1">
+      <div class="card-image">
         <div class="beer_image"></div>
       </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">
-          Brewery
-        <p>
-          <a href="{% url 'brewery-list' %}" target="_blank"> GET - List of all Breweries</a> <br>
-          <a href="{% url 'create_brewery' %}" target="_blank"> POST - Create new Breweries</a>
-        </p>
+      <div class="card-content white-text">
+        <span class="card-title h3 grey-text text-darken-4">
+          <h3>Beer DELETE</h3>
+            {% if beer_list %}
+  
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Delete Beer</a>
+  
+            <!-- Dropdown Structure -->
+          <ul id='dropdown2' class='dropdown-content'>
+            {% for x in beer_list %}
+  
+            <li>
+              <a class="dropdown-item" href="{% url 'delete_beer' x.id %}" target="_blank">
+                {{ x.beerName }} : {{ x.id }}
+              </a>
+            </li>
+  
+            {% endfor %}
+          </ul>
+  
+          {% else %}
+          <p>No ID's are available.</p>
+          {% endif %}
+        </span>
       </div>
     </div>
-
+  
   </section>
-
+  
+  <section class="actions">
+  
+    <div class="card small get brewery card blue-grey darken-1">
+      <div class="card-image">
+        <div class="beer_image"></div>
+      </div>
+      <div class="card-content white-text">
+        <span class="card-title h3 grey-text text-darken-4">
+          <h3>Brewery GET</h3>
+          <a class="btn" href="{% url 'brewery-list' %}" target="_blank">List Breweries</a>
+      </div>
+    </div>
+  
+    <div class="card small get brewery card blue-grey darken-1">
+      <div class="card-image">
+        <div class="beer_image"></div>
+      </div>
+      <div class="card-content white-text">
+        <span class="card-title h3 grey-text text-darken-4">
+          <h3>Brewery POST</h3> 
+          <a class="btn" href="{% url 'create_brewery' %}" target="_blank">Create new Brewery</a>
+      </div>
+    </div>
+  
+  </section>
 </div>
 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-      var instances = M.Dropdown.init(elems, options);
-    });
-
-    // Or with jQuery
-
-    $('.dropdown-trigger').dropdown();
-  </script>
 
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $('.dropdown-trigger').dropdown();
+</script>
+
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
