@@ -16,5 +16,10 @@ class Beer(models.Model):
     beerPercentage= models.CharField(max_length=10, null=True)
     beerPrice = models.DecimalField(max_length=10, null=True, decimal_places=2, max_digits=10000)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['beerName', 'beerNr'], name='beerNr_beerName_constraint')
+        ]
+
     def __str__(self):
         return self.beerName

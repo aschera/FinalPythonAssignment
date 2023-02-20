@@ -350,7 +350,7 @@ data = BeerParser.parse_file('beer_website_source.html')
 # ------------------------ Make the brewery list ---------------------------------#
 
 # Define the starting ID number for breweries
-start_id = 38
+start_id = 60
 
 # Use the BeerParser module to assign unique IDs to breweries in the beer data and return a list of these IDs
 breweries_ids = BeerParser.assign_brewery_ids(data, start_id)

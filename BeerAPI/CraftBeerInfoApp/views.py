@@ -1,6 +1,8 @@
+from django.db import IntegrityError
 from django.http import HttpResponse
 from django.urls import reverse
 from django.shortcuts import render
+from django.db.models import Q
  
 from rest_framework import status, generics
 from rest_framework.views import APIView
@@ -72,18 +74,34 @@ class BreweryListView(APIView):
 
 @api_view(['POST'])
 def create_beer(request):
-    # Extract the beer data from the request
-    beers_data = request.data
-    # Use the BeerSerializer to validate and serialize the data
-    serializer = BeerSerializer(data=beers_data, many=True)
-    # Check if the serializer is valid
-    if serializer.is_valid():
-        # Save the new Beer objects to the database
-        serializer.save()
-        # Return the serialized data with a 201 status code
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    # If the serializer is not valid, return the errors with a 400 status code
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    beer_data_list = request.data
+    created_beers = []
+    errors = []
+
+    for beer_data in beer_data_list:
+        # Use the BeerSerializer to validate and serialize the data for each beer object
+        serializer = BeerSerializer(data=beer_data)
+
+        # Check if the serializer is valid
+        if serializer.is_valid():
+            try:
+                # Try to save the serialized data
+                serializer.save()
+                # Add the serialized data to the list of successfully created beers
+                created_beers.append(serializer.data)
+            except IntegrityError:
+                # If the save operation fails due to a unique constraint violation, add an error message to the list of errors
+                errors.append({'error': 'Beer with name "{}" and number "{}" already exists'.format(beer_data['beerName'], beer_data['beerNr'])})
+        else:
+            # If the serializer is not valid, add the errors to the list of errors
+            errors.append(serializer.errors)
+
+    # Return a response with information about the created beers and any errors
+    if errors:
+        return Response({'created': created_beers, 'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'created': created_beers}, status=status.HTTP_201_CREATED)
+
 
 """
 Test object
