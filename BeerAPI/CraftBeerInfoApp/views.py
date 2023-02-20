@@ -126,12 +126,34 @@ Test object
 
 @api_view(['POST'])
 def create_brewery(request):
-    brewery_data = request.data
-    serializer = BrewerySerializer(data=brewery_data, many=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    brewery_data_list = request.data
+    created_breweries = []
+    errors = []
+
+    for brewery_data in brewery_data_list:
+        # Use the BrewerySerializer to validate and serialize the data for each brewery
+        serializer = BrewerySerializer(data=brewery_data)
+
+        # Check if the serializer is valid
+        if serializer.is_valid():
+            try:
+                # Try to save the serialized data
+                serializer.save()
+                # Add the serialized data to the list of successfully created breweries
+                created_breweries.append(serializer.data)
+            except IntegrityError:
+                # If the save operation fails due to a unique constraint violation, add an error message to the list of errors
+                errors.append({'error': 'Brewery with name "{}" already exists'.format(brewery_data['breweryName'])})
+        else:
+            # If the serializer is not valid, add the errors to the list of errors
+            errors.append(serializer.errors)
+
+    # Return a response with information about the created breweries and any errors
+    if errors:
+        return Response({'created': created_breweries, 'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'created': created_breweries}, status=status.HTTP_201_CREATED)
+
 
 """
 Test object

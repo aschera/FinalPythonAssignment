@@ -4,6 +4,11 @@ from django.db import models
 class Brewery(models.Model):
     breweryName = models.CharField(max_length=100, unique=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['breweryName'], name='breweryName_constraint')
+        ]
+
 class Beer(models.Model):
 
     # fields
