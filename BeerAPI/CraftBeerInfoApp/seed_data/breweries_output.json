@@ -1,1 +1,90 @@
-[{"id": 60, "breweryName": "Oceanbryggeriet"}, {"id": 61, "breweryName": "Göteborgs Nya Bryggeri"}, {"id": 62, "breweryName": "Stigbergets Bryggeri"}, {"id": 63, "breweryName": "Beerbliotek"}, {"id": 64, "breweryName": "O/O Brewing"}, {"id": 65, "breweryName": "Duckpond Brewing"}, {"id": 66, "breweryName": "Bearded Rabbit Brewery"}, {"id": 67, "breweryName": "Spike Brewery"}, {"id": 68, "breweryName": "Två Feta Grisar"}, {"id": 69, "breweryName": "All In Brewing"}, {"id": 70, "breweryName": "Vega Bryggeri"}, {"id": 71, "breweryName": "El Pondo"}, {"id": 72, "breweryName": "Beersmiths"}, {"id": 73, "breweryName": "Billdale"}, {"id": 74, "breweryName": "Fermenterarna"}, {"id": 75, "breweryName": "Hefenator"}, {"id": 76, "breweryName": "Majornas Bryggeri"}, {"id": 77, "breweryName": "Mohawk Brewing Company"}, {"id": 78, "breweryName": "Morgondagens Bryggeri"}, {"id": 79, "breweryName": "Fingerlickin'"}, {"id": 80, "breweryName": "Paranormal Brewing"}, {"id": 81, "breweryName": "Sad Robot Brewing Co"}]
+[
+    {
+        "id": 60,
+        "breweryName": "Oceanbryggeriet"
+    },
+    {
+        "id": 61,
+        "breweryName": "Göteborgs Nya Bryggeri"
+    },
+    {
+        "id": 62,
+        "breweryName": "Stigbergets Bryggeri"
+    },
+    {
+        "id": 63,
+        "breweryName": "Beerbliotek"
+    },
+    {
+        "id": 64,
+        "breweryName": "O/O Brewing"
+    },
+    {
+        "id": 65,
+        "breweryName": "Duckpond Brewing"
+    },
+    {
+        "id": 66,
+        "breweryName": "Bearded Rabbit Brewery"
+    },
+    {
+        "id": 67,
+        "breweryName": "Spike Brewery"
+    },
+    {
+        "id": 68,
+        "breweryName": "Två Feta Grisar"
+    },
+    {
+        "id": 69,
+        "breweryName": "All In Brewing"
+    },
+    {
+        "id": 70,
+        "breweryName": "Vega Bryggeri"
+    },
+    {
+        "id": 71,
+        "breweryName": "El Pondo"
+    },
+    {
+        "id": 72,
+        "breweryName": "Beersmiths"
+    },
+    {
+        "id": 73,
+        "breweryName": "Billdale"
+    },
+    {
+        "id": 74,
+        "breweryName": "Fermenterarna"
+    },
+    {
+        "id": 75,
+        "breweryName": "Hefenator"
+    },
+    {
+        "id": 76,
+        "breweryName": "Majornas Bryggeri"
+    },
+    {
+        "id": 77,
+        "breweryName": "Mohawk Brewing Company"
+    },
+    {
+        "id": 78,
+        "breweryName": "Morgondagens Bryggeri"
+    },
+    {
+        "id": 79,
+        "breweryName": "Fingerlickin'"
+    },
+    {
+        "id": 80,
+        "breweryName": "Paranormal Brewing"
+    },
+    {
+        "id": 81,
+        "breweryName": "Sad Robot Brewing Co"
+    }
+]

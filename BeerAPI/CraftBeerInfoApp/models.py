@@ -26,5 +26,8 @@ class Beer(models.Model):
             models.UniqueConstraint(fields=['beerName', 'beerNr'], name='beerNr_beerName_constraint')
         ]
 
+
+
+
     def __str__(self):
         return self.beerName

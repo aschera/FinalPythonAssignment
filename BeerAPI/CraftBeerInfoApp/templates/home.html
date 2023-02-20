@@ -1,6 +1,9 @@
 <head>
   {% load static %}
 
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <!-- Compiled and minified JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -18,110 +21,120 @@
 </head>
 
 
+
+
+<header>
+  <h1 id="header-text">
+    Craft Beer API
+  </h1>
+</header>
+
+<section class="menu">
+  <div class="row">
+    <div class="col s12 m10 l10">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">
+            Welcome to our Beer API!
+          </span>
+          <p>
+            We have gathered data on local breweries in Gothenburg from systembolaget.se, and you can access it through
+            our API.</p>
+          <p> This is an API of Beer data.
+            <br>
+            The beers are from local breweries in Gothenburg.
+            Webscraped from systembolaget.se
+          </p>
+        </div>
+        <div class="card-action">
+          <a href="#info">See API actions below.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="container">
 
-  <div class="row">
+  <section class="info" id="info">
+    <div class="row">
+      <div class="col section s12 m12 l12">
 
-    <div class="col section  s12 m12 l12">
+        <h2>API actions</h2>
 
-      <header>
-        <h1 id="header-text">
-          Craft Beer API
-        </h1>
-    </header>
+        <ol>
+          <li>
+            Under the 'GET' heading, you can find lists of breweries and beers.
+          </li>
+          <li>
+            If you want to add new beer or brewery objects, go to the 'POST' heading. Remember that your data needs to
+            be in the JSON list format: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
+          </li>
+          <li>
+            If you want to change the data in an existing beer object, go to the 'PUT' heading and choose the ID of the
+            beer you want to update. You'll be taken to a page where you can make your changes and save them.
+          <li>
+            Finally, if you want to delete an existing beer object, go to the 'DELETE' heading and choose the ID of the
+            beer you want to delete. You'll be taken to a page where you can confirm that you want to delete the
+            selected beer.
+          </li>
+        </ol>
 
-      <p>Welcome to our Beer API! <br><br>
-        We have gathered data on local breweries in Gothenburg from systembolaget.se, and you can access it through our API.</p>
+        <p>
+          We hope you find our Beer API useful and easy to use!
+        </p>
 
-      <p> This is an API of Beer data.
-        <br>
-        The beers are from local breweries in Gothenburg.
-        Webscraped from systembolaget.se
-      </p>
-
-      <ol>
-        <li>
-          Under the 'GET' heading, you can find lists of breweries and beers. 
-        </li>
-        <li>
-          If you want to add new beer or brewery objects, go to the 'POST' heading. Remember that your data needs to be in the JSON list format: [ {'key1': 'value one'}, ]{'key2': 'value two'} ]
-        </li>
-        <li>
-          If you want to change the data in an existing beer object, go to the 'PUT' heading and choose the ID of the beer you want to update. You'll be taken to a page where you can make your changes and save them.
-        <li>
-          Finally, if you want to delete an existing beer object, go to the 'DELETE' heading and choose the ID of the beer you want to delete. You'll be taken to a page where you can confirm that you want to delete the selected beer.
-        </li>
-      </ol>
-
-      <p>
-        We hope you find our Beer API useful and easy to use!
-      </p>
-
+      </div>
     </div>
+  </section>
 
-  </div>
+  <section class="actions">
 
+    <div class="card small get beer">
+      <div class="card-image waves-effect waves-block waves-light">
+        <div class="beer_image"></div>
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">
+          Beer
+          <i class="material-icons right">more_vert</i></span>
+        <p>
+          <a href="{% url 'beer-list' %}" target="_blank"> GET - List of all Craft Beers</a><br>
+          <a href="{% url 'create_beer' %}" target="_blank"> POST - Create new Craft Beers</a>
+        </p>
 
-  <div class="row">
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Beer<i class="material-icons right">close</i></span>
+        <p> Be careful when using put and delete!</p>
+        <p>
+          {% if beer_list %}
 
-    <div class="section col s12 m12 l12">
-      <h2>Beer</h2>
-    </div>
+          <!-- Dropdown Trigger -->
+          <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>PUT</a>
+    
+          <!-- Dropdown Structure -->
+          <ul id='dropdown1' class='dropdown-content'>
+            {% for x in beer_list %}
+            <li>
+              <a class="dropdown-item" href="{% url 'update_beer' x.id %}" target="_blank">
+                {{ x.beerName }} : {{ x.id }}
+              </a>
+            </li>
+    
+            {% endfor %}
+          </ul>
+    
+          {% else %}
+          <p>No ID's are available.</p>
+          {% endif %}
 
-  </div>
+          <br>
 
-  <div class="row collection">
-
-    <div class="section col s12 m3 l3 collection-item ">
-      <h4>1 GET</h4>
-      <a href="{% url 'beer-list' %}" target="_blank"> List of all Craft Beers</a>
-    </div>
-
-    <div class="section col s12 m3 l3 collection-item ">
-      <h4>2 POST</h4>
-      <a href="{% url 'create_beer' %}" target="_blank"> Create new Craft Beers</a></li>
-    </div>
-
-    <div class="col section s12 m3 l3 collection-item ">
-
-      <h4>3 PUT</h4>
-
-      <p> Choose an ID in the list to update </p>
-
-      {% if beer_list %}
+                {% if beer_list %}
 
       <!-- Dropdown Trigger -->
-      <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Choose Beer ID</a>
-
-      <!-- Dropdown Structure -->
-      <ul id='dropdown1' class='dropdown-content'>
-        {% for x in beer_list %}
-        <li>
-          <a class="dropdown-item" href="{% url 'update_beer' x.id %}" target="_blank">
-            {{ x.beerName }} : {{ x.id }}
-          </a>
-        </li>
-
-        {% endfor %}
-      </ul>
-
-      {% else %}
-      <p>No ID's are available.</p>
-      {% endif %}
-
-
-    </div>
-
-    <div class="col section s12 m3 l3 collection-item ">
-
-      <h4>4 DELETE</h4>
-
-      <p> Choose an ID in the list to delete</p>
-
-      {% if beer_list %}
-
-      <!-- Dropdown Trigger -->
-      <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Choose Beer ID</a>
+      <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Delete</a>
 
       <!-- Dropdown Structure -->
       <ul id='dropdown2' class='dropdown-content'>
@@ -140,39 +153,27 @@
       <p>No ID's are available.</p>
       {% endif %}
 
-
-      </form>
-
+        </p>
+      </div>
     </div>
 
-
-  </div>
-
-
-
-  <div class="row">
-
-    <div class="col section s12 m12 l12">
-      <h2>Brewery</h2>
+    <div class="card small get brewery">
+      <div class="card-image waves-effect waves-block waves-light">
+        <div class="beer_image"></div>
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">
+          Brewery
+        <p>
+          <a href="{% url 'brewery-list' %}" target="_blank"> GET - List of all Breweries</a> <br>
+          <a href="{% url 'create_brewery' %}" target="_blank"> POST - Create new Breweries</a>
+        </p>
+      </div>
     </div>
 
-  </div>
+  </section>
 
-  <div class="row collection">
-
-    <div class="col section s12 m6 l3 collection-item ">
-      <h4>1 GET</h4>
-      <a href="{% url 'brewery-list' %}" target="_blank"> List of all Breweries</a>
-    </div>
-
-    <div class="col section s12 m6 l3 collection-item ">
-      <h4>2 POST</h4>
-      <a href="{% url 'create_brewery' %}" target="_blank"> Create new Breweries</a>
-    </div>
-
-  </div>
-
-
+</div>
 
 
   <script>
@@ -185,6 +186,8 @@
 
     $('.dropdown-trigger').dropdown();
   </script>
+
+
   <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</div>
