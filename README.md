@@ -6,7 +6,7 @@
 The final assignment for my Python course in the Data Science education.<br /> 
 
 I'm going to use the following libraries to create my API:<br />
-- Django framework<br />
+- Django framework <br />
 
 I created a web app which serves a REST API.<br />
 It is connected to a sqLite database.<br />
@@ -30,8 +30,10 @@ There is one DELETE endpoint.<br /><br />
 
 ## How to start:
 
- cd .\BeerAPI\<br />
- python manage.py runserver   <br />  
+ cd .\BeerAPI\   
+ <br />
+ python manage.py runserver       
+ <br />
 
  open: <br />
  http://127.0.0.1:8000/<br />
